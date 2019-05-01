@@ -98,6 +98,7 @@ CREATE TABLE `payment` (
 ALTER TABLE `lake` ADD FOREIGN KEY (tournament_id) REFERENCES `tournament` (`id`);
 ALTER TABLE `tournament` ADD FOREIGN KEY (admin_id) REFERENCES `admin` (`id`);
 ALTER TABLE `particpant_tournament_fish` ADD FOREIGN KEY (participant_id) REFERENCES `participant` (`id`);
+ALTER TABLE `tournament` ADD FOREIGN KEY (participant_id) REFERENCES `participant` (`id`);
 ALTER TABLE `particpant_tournament_fish` ADD FOREIGN KEY (tournament_id) REFERENCES `tournament` (`id`);
 ALTER TABLE `particpant_tournament_fish` ADD FOREIGN KEY (fish_id) REFERENCES `fish` (`id`);
 ALTER TABLE `payment` ADD FOREIGN KEY (participant_id) REFERENCES `participant` (`id`);

@@ -71,11 +71,9 @@ CREATE TABLE `fish` (
 -- ---
 
 CREATE TABLE `particpant_tournament_fish` (
-  `id` INTEGER NOT NULL AUTO_INCREMENT,
   `participant_id` INTEGER NULL DEFAULT NULL,
   `tournament_id` INTEGER NULL DEFAULT NULL,
   `fish_id` INTEGER NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
 ) engine=InnoDB Default charset utf8mb4 collate=utf8mb4_unicode_ci;
 
 -- ---

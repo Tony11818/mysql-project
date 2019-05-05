@@ -19,7 +19,7 @@ JOIN lake AS l ON (l.id=t.lake_id);
 
 --getting all of the fish for a participant in the tournaments
 delimiter EOF
-CREATE function allFish(firstname VARCHAR(55),lastname VARCHAR(55), weight DECIMAL(4,2))
+CREATE procedure allFish(firstname VARCHAR(55),lastname VARCHAR(55), weight DECIMAL(4,2))
 BEGIN
     SELECT CONCAT(p.firstname,' ',p.lastname) AS "fishermen", l.lakename, l.state, f.weight AS "fish weight" FROM people AS p
     JOIN people_tournament_fish AS ptf ON (p.id=ptf.participant_id)

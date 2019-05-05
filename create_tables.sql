@@ -16,6 +16,7 @@ CREATE TABLE `lake` (
 
 CREATE TABLE `tournament` (
   `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  `admin_id` INT UNSIGNED,
   `tournament_date` DATE,
   `starttime` TIME,
 	`endtime` TIME,
@@ -32,7 +33,6 @@ CREATE TABLE `fish` (
 
 CREATE TABLE `people_tournament_fish` (
   `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-  `admin_id` INT UNSIGNED,
   `participant_id` INT UNSIGNED,
   `tournament_id` INT UNSIGNED,
   `fish_id` INT UNSIGNED
@@ -57,7 +57,7 @@ CREATE TABLE `results` (
 
 
 ALTER TABLE tournament ADD FOREIGN KEY (lake_id) REFERENCES lake (id);
-ALTER TABLE people_tournament_fish ADD FOREIGN KEY (admin_id) REFERENCES people (id);
+ALTER TABLE tournament ADD FOREIGN KEY (admin_id) REFERENCES people (id);
 ALTER TABLE people_tournament_fish ADD FOREIGN KEY (participant_id) REFERENCES people (id);
 ALTER TABLE people_tournament_fish ADD FOREIGN KEY (tournament_id) REFERENCES tournament (id);
 ALTER TABLE people_tournament_fish ADD FOREIGN KEY (fish_id) REFERENCES fish (id);

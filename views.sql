@@ -20,15 +20,11 @@ JOIN lake AS l ON (l.id=t.lake_id);
 --getting all of the fish for a participant in the tournaments
 delimiter EOF
 CREATE function allFish(firstname VARCHAR(55),lastname VARCHAR(55), weight DECIMAL(4,2))
-RETURNS FLOAT
-READS SQL DATA
 BEGIN
-    set @result = 0;
     SELECT CONCAT(p.firstname,' ',p.lastname) AS "fishermen", l.lakename, l.state, f.weight AS "fish weight" FROM people AS p
     JOIN people_tournament_fish AS ptf ON (p.id=ptf.participant_id)
     JOIN tournament AS t ON (t.id=ptf.tournament_id)
     JOIN fish AS f ON (f.id=ptf.fish_id)
     JOIN lake AS l ON (l.id=t.lake_id);
-    RETURN @result;
 END EOF
 delimiter ;

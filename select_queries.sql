@@ -10,4 +10,5 @@ JOIN people_tournament_fish AS ptf ON (a.id=ptf.admin_id)
 JOIN tournament AS t ON (t.id=ptf.tournament_id)
 JOIN lake AS l ON (l.id=t.lake_id)
 JOIN people AS p ON (p.id=ptf.participant_id)
-JOIN fish AS f ON (f.id=ptf.fish_id)\G
+JOIN fish AS f ON (f.id=ptf.fish_id)
+WHERE t.id = 1\G

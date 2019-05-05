@@ -1,4 +1,4 @@
-CREATE Algorithm = participantfish AS
+CREATE Algorithm = merge view participantfish AS
 SELECT p.firstname, p.lastname,l.lakename, t.tournament_date, f.weight
 FROM people AS p
 JOIN people_tournament_fish AS ptf ON(p.id=ptf.participant_id)

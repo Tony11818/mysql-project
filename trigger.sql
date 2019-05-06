@@ -1,6 +1,6 @@
 -- this trigger updates the winner in the results tables for biggest fish
 delimiter $
-CREATE TRIGGER updateTourneyWinner BEFORE INSERT on people_tournament_fish
+CREATE TRIGGER updateTourneyWinner AFTER INSERT on people_tournament_fish
 FOR EACH ROW BEGIN
     -- get the original leader in the tourney
     DECLARE winnerId INT;
@@ -28,3 +28,33 @@ delimiter ;
 INSERT INTO fish (weight) VALUES (10.6);
 INSERT INTO people_tournament_fish (participant_id,tournament_id,fish_id)
 VALUES (12,1,79);
+
+----------------
+----------------
+-- TRIGGER #2
+----------------
+----------------
+
+-- check if user paid
+SELECT * FROM payment where participant_id = 12 AND tournament_id = 1;
+
+-- trigger 2, check if the participant has paid for the tournament before
+-- they can add their fish to that tournament
+delimiter $
+CREATE TRIGGER isYourTourneyPaid BEFORE INSERT on people_tournament_fish
+FOR EACH ROW BEGIN
+  DECLARE tourneyPaid TINYINT;
+  DECLARE membershipPaid TINYINT;
+  SELECT paid_for_tournament,membership_paid INTO tourneyPaid,membershipPaid
+  FROM payment WHERE participant_id = NEW.participant_id AND tournament_id = NEW.tournament_id;
+  IF tourneyPaid=0 OR membershipPaid=0 THEN
+    set NEW.fish_id = NULL;
+  END IF;
+END$
+delimiter ;
+
+-- test
+update payment set paid_for_tournament = 0,membership_paid = 0
+WHERE participant_id = 12 AND tournament_id = 2;
+-- add that fish
+call addFish(20.5,12,2);
